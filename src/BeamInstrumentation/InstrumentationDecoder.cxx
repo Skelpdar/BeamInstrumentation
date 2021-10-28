@@ -8,12 +8,15 @@ namespace instrumentation {
 	}
 
 	void InstrumentationDecoder::produce(framework::Event &event){
-		std::cout << event.getEventHeader().getEventNumber();
+		std::cout << "In InstrumentationDecoder: " << event.getEventHeader().getEventNumber();
 
 		std::vector<instrumentation::WRTimestampDigis> outDigis;
 
+		//uint8_t tIDword = eventStream.at(pos);
+
+
 		WRTimestampDigis digi;
-		std::vector<uint32_t> dummyData = {(uint32_t)1.0};
+		std::vector<uint32_t> dummyData = {(uint32_t)event.getEventHeader().getEventNumber()};
 		digi.setData(dummyData);
 		outDigis.push_back(digi);
 

@@ -1,6 +1,6 @@
 #include "BeamInstrumentation/Event/WRTimestampDigis.h"
 
-ClassImp(instrumentation::WRTimestampDigis);
+ClassImp(instrumentation::WRTimestampDigis)
 
 namespace instrumentation {
 

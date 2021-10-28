@@ -20,6 +20,7 @@ if(BUILD_EVENT_ONLY)
 		Hcal::Event
 		TrigScint::Event
 		Recon::Event
+		BeamInstrumentation::Event
 	register_target)
 
 	return()
