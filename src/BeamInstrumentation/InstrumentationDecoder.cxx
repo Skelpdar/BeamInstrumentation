@@ -1,4 +1,4 @@
-#import "BeamInstrumentation/InstrumentationDecoder.h"
+#include "BeamInstrumentation/InstrumentationDecoder.h"
 
 namespace instrumentation {
 
@@ -13,12 +13,36 @@ namespace instrumentation {
 		std::vector<instrumentation::WRTimestampDigis> outDigis;
 
 		WRTimestampDigis digi;
-		digi.setData
+		std::vector<uint32_t> dummyData = {(uint32_t)1.0};
+		digi.setData(dummyData);
+		outDigis.push_back(digi);
 
 		event.add(outputCollection_, outDigis);
 	}
 
-	
+	void InstrumentationDecoder::onFileOpen() {
+		ldmx_log(debug) << "Opening file!";
+
+		return;
+	}	
+
+	void InstrumentationDecoder::onFileClose() {
+		ldmx_log(debug) << "Closing file!";
+
+		return;
+	}
+
+	void InstrumentationDecoder::onProcessStart() {
+		ldmx_log(debug) << "Process start!";
+
+		return;
+	}
+
+	void InstrumentationDecoder::onProcessEnd(){
+		ldmx_log(debug) << "Process ends!";
+
+		return;
+	}
 
 }
 
