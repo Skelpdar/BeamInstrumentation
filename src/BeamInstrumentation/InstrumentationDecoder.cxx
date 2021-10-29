@@ -16,8 +16,9 @@ namespace instrumentation {
 
 
 		WRTimestampDigis digi;
-		std::vector<uint32_t> dummyData = {(uint32_t)event.getEventHeader().getEventNumber()};
-		digi.setData(dummyData);
+		//std::vector<uint32_t> dummyData = {(uint32_t)event.getEventHeader().getEventNumber()};
+		uint32_t dummyData = (uint32_t)event.getEventHeader().getEventNumber();
+		digi.setSeconds(dummyData);
 		outDigis.push_back(digi);
 
 		event.add(outputCollection_, outDigis);

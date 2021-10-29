@@ -19,11 +19,21 @@ namespace instrumentation {
 			return true;
 		}
 
-		std::vector<uint32_t> getData() {return data;};
-		std::vector<uint32_t> setData(std::vector<uint32_t> d) {data = d;};
+		uint32_t getSeconds() {return seconds;};
+		void setSeconds(uint32_t s) {seconds = s;};
+
+		uint32_t getCoarse() {return coarse;};
+		uint32_t setCoarse(uint32_t c) {coarse = c;};
+
+		uint32_t getFrac() {return frac;};
+		uint32_t setFrac(uint32_t f) {frac = f;};
+
+		void setData(uint32_t s, uint32_t c, uint32_t f) {seconds=s; coarse=c; frac=f;};
 
 	private:
-		std::vector<uint32_t> data;
+		uint32_t seconds;
+		uint32_t coarse;
+		uint32_t frac;
 
 		ClassDef(WRTimestampDigis, 1);
 	};

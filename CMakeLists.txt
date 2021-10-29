@@ -11,7 +11,7 @@ find_package(ROOT CONFIG REQUIRED)
 option(BUILD_EVENT_ONLY "Build the event library." ON)
 if(BUILD_EVENT_ONLY)
 
-	register_event_object( module_path "BeamInstrumentation/Event" namespace "ldmx" class "WRTimestamp" type "collection" )
+	# register_event_object( module_path "BeamInstrumentation/Event" namespace "ldmx" class "WRTimestamp" type "collection" )
 	register_event_object( module_path "BeamInstrumentation/Event" namespace "instrumentation" class "WRTimestampDigis" type "collection" )
   
 	# Generate the files needed to build the event classes.
