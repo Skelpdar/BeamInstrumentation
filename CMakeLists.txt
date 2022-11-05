@@ -11,8 +11,8 @@ find_package(ROOT CONFIG REQUIRED)
 option(BUILD_EVENT_ONLY "Build the event library." ON)
 if(BUILD_EVENT_ONLY)
 
-	# register_event_object( module_path "BeamInstrumentation/Event" namespace "ldmx" class "WRTimestamp" type "collection" )
-	register_event_object( module_path "BeamInstrumentation/Event" namespace "instrumentation" class "WRTimestampDigis" type "collection" )
+  register_event_object( module_path "BeamInstrumentation/Event" namespace "beaminstrumentation" class "FiberTrackerPlane" type "collection" )
+  register_event_object( module_path "BeamInstrumentation/Event" namespace "beaminstrumentation" class "WhiteRabbitResult" type "collection" )
   
 	# Generate the files needed to build the event classes.
 	setup_library(module BeamInstrumentation name Event
@@ -28,7 +28,7 @@ if(BUILD_EVENT_ONLY)
 endif()
 
 setup_library(module BeamInstrumentation
-	dependencies Framework::Framework Recon::Event DetDescr::DetDescr Tools::Tools SimCore::Event
+  dependencies Framework::Framework Recon::Event DetDescr::DetDescr Tools::Tools SimCore::Event BeamInstrumentation::Event
 )
 
 setup_python(package_name ${PYTHON_PACKAGE_NAME}/BeamInstrumentation)
