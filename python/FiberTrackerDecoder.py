@@ -1,5 +1,3 @@
-
-
 from LDMX.Framework import ldmxcfg
 
 class FiberTrackerDecoder(ldmxcfg.Producer):
@@ -11,18 +9,13 @@ class FiberTrackerDecoder(ldmxcfg.Producer):
         self.output_collection = ''
         self.is_real_data=True
 
-    def FT50():
+    def decode():
         dec = FiberTrackerDecoder()
-        dec.input_collection = 'FiberTrackerFT50'
-        dec.output_collection = 'decodedFiberTrackerFT50'
+        dec.input_collection_downstream_horizontal = 'FiberTrackerFT50'
+        dec.input_collection_downstream_vertical = 'FiberTrackerFT51'
+        dec.input_collection_upstream_horizontal = 'FiberTrackerFT41'
+        dec.input_collection_upstream_vertical = 'FiberTrackerFT42'
+        dec.output_collection = 'decodedFiberTracker'
 
         return dec
     
-    def FT51():
-        dec = FiberTrackerDecoder()
-        dec.input_collection = 'FiberTrackerFT51'
-        dec.output_collection = 'decodedFiberTrackerFT51'
-
-        return dec
-
-

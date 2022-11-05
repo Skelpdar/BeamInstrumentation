@@ -13,7 +13,6 @@ namespace beaminstrumentation {
 		FiberTrackerDecoder(const std::string &name, framework::Process &process) : Producer(name, process) {};
 
 		~FiberTrackerDecoder() = default;
-		
 
 		virtual void configure(framework::config::Parameters &ps);
 
@@ -28,7 +27,10 @@ namespace beaminstrumentation {
 		virtual void onProcessEnd();
 	
 	private:
-		std::string inputCollection_;
+		std::string inputCollectionDownstreamHorizontal_; //FT50
+		std::string inputCollectionDownstreamVertical_; //FT51
+		std::string inputCollectionUpstreamHorizontal_; //FT41
+		std::string inputCollectionUpstreamVertical_; //FT42
 		std::string outputCollection_;
 		std::string inputPassName_;
 		

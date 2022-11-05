@@ -4,27 +4,33 @@ namespace beaminstrumentation {
 
 	void FiberTrackerDecoder::configure(framework::config::Parameters &ps){
 		outputCollection_ = ps.getParameter<std::string>("output_collection");
-		inputCollection_ = ps.getParameter<std::string>("input_collection");
+		inputCollectionDownstreamHorizontal_ = ps.getParameter<std::string>("input_collection_downstream_horizontal");
+		inputCollectionDownstreamVertical_ = ps.getParameter<std::string>("input_collection_downstream_vertical");
+		inputCollectionUpstreamHorizontal_ = ps.getParameter<std::string>("input_collection_upstream_horizontal");
+		inputCollectionUpstreamVertical_ = ps.getParameter<std::string>("input_collection_upstream_vertical");
     inputPassName_ = ps.getParameter<std::string>("input_pass_name");
 	}
 
 	void FiberTrackerDecoder::produce(framework::Event &event){
-		std::cout << "In FiberTrackerDecoder: " << event.getEventHeader().getEventNumber();
+		std::cout << "\nIn FiberTrackerDecoder: " << event.getEventHeader().getEventNumber();
 
-    const auto eventStream{event.getCollection<uint32_t>( inputCollection_, inputPassName_)};
+    const auto eventStreamDownstreamHorizontal{event.getCollection<uint8_t>( inputCollectionDownstreamHorizontal_, inputPassName_)}; //FT50
+
+    std::vector<uint> hitsDownstreamHorizontal;
+    if(eventStreamDownstreamHorizontal.size() == 40){
+      for(int i = 0; i < 24; i++){
+        for(int k = 0; k < 8; k++){
+          if((eventStreamDownstreamHorizontal.at(16+i) >> k) & 0x1 == 1){
+            hitsDownstreamHorizontal.push_back(i*8+k);
+          }
+        }
+      }
+    }
+    std::cout << "\n" <<eventStreamDownstreamHorizontal.size() << "\n";
 
     std::vector<uint> hits;
-    hits.push_back((uint)eventStream.at(0));
     
-    FiberTrackerPlane out(hits);
-
-		//uint8_t tIDword = eventStream.at(pos);
-
-		//WRTimestampDigis digi;
-		//std::vector<uint32_t> dummyData = {(uint32_t)event.getEventHeader().getEventNumber()};
-		//uint32_t dummyData = (uint32_t)event.getEventHeader().getEventNumber();
-		//digi.setSeconds(dummyData);
-		//outDigis.push_back(digi);
+    FiberTrackerPlane out(hitsDownstreamHorizontal, hits, hits,  hits); // Order  hitsDownstreamHorizontal, hitsDownstreamVertical, hitsUpstreamHorizontal, hitsUpstreamVertical)
 
 		event.add(outputCollection_, out);
 	}
@@ -53,6 +59,6 @@ namespace beaminstrumentation {
 		return;
 	}
 
-} // beaminstrumentation
+} // namespace beaminstrumentation
 
 DECLARE_PRODUCER_NS(beaminstrumentation, FiberTrackerDecoder);
