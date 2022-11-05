@@ -30,7 +30,7 @@ namespace beaminstrumentation {
 
     std::vector<uint> hits;
     
-    FiberTrackerPlane out(hitsDownstreamHorizontal, hits, hits,  hits); // Order  hitsDownstreamHorizontal, hitsDownstreamVertical, hitsUpstreamHorizontal, hitsUpstreamVertical)
+    FiberTracker out(hitsDownstreamHorizontal, hits, hits,  hits); // Order  hitsDownstreamHorizontal, hitsDownstreamVertical, hitsUpstreamHorizontal, hitsUpstreamVertical)
 
 		event.add(outputCollection_, out);
 	}

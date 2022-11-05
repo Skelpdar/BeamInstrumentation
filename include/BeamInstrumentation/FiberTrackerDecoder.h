@@ -4,7 +4,7 @@
 #include "Framework/Configure/Parameters.h"
 #include "Framework/Event.h"
 #include "Framework/EventProcessor.h"
-#include "BeamInstrumentation/Event/FiberTrackerPlane.h"
+#include "BeamInstrumentation/Event/FiberTracker.h"
 
 namespace beaminstrumentation {
 
