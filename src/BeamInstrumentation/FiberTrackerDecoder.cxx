@@ -14,7 +14,10 @@ namespace beaminstrumentation {
 	void FiberTrackerDecoder::produce(framework::Event &event){
 		std::cout << "\nIn FiberTrackerDecoder: " << event.getEventHeader().getEventNumber();
 
-    const auto eventStreamDownstreamHorizontal{event.getCollection<uint8_t>( inputCollectionDownstreamHorizontal_, inputPassName_)}; //FT50
+    const auto eventStreamDownstreamHorizontal{event.getCollection<uint8_t>( inputCollectionDownstreamHorizontal_, inputPassName_)}; 
+    const auto eventStreamDownstreamVertical{event.getCollection<uint8_t>( inputCollectionDownstreamVertical_, inputPassName_)}; 
+    //const auto eventStreamUpstreamHorizontal{event.getCollection<uint8_t>( inputCollectionUpstreamHorizontal_, inputPassName_)}; 
+    //const auto eventStreamUpstreamVertical{event.getCollection<uint8_t>( inputCollectionUpstreamVertical_, inputPassName_)}; 
 
     std::vector<uint> hitsDownstreamHorizontal;
     if(eventStreamDownstreamHorizontal.size() == 40){
@@ -26,11 +29,21 @@ namespace beaminstrumentation {
         }
       }
     }
-    std::cout << "\n" <<eventStreamDownstreamHorizontal.size() << "\n";
 
-    std::vector<uint> hits;
+    std::vector<uint> hitsDownstreamVertical;
+    if(eventStreamDownstreamVertical.size() == 40){
+      for(int i = 0; i < 24; i++){
+        for(int k = 0; k < 8; k++){
+          if((eventStreamDownstreamVertical.at(16+i) >> k) & 0x1 == 1){
+            hitsDownstreamVertical.push_back(i*8+k);
+          }
+        }
+      }
+    }
+
+    std::vector<uint> emptyHits;
     
-    FiberTracker out(hitsDownstreamHorizontal, hits, hits,  hits); // Order  hitsDownstreamHorizontal, hitsDownstreamVertical, hitsUpstreamHorizontal, hitsUpstreamVertical)
+    FiberTracker out(hitsDownstreamHorizontal, hitsDownstreamVertical, emptyHits,  emptyHits); // Order  hitsDownstreamHorizontal, hitsDownstreamVertical, hitsUpstreamHorizontal, hitsUpstreamVertical)
 
 		event.add(outputCollection_, out);
 	}
