@@ -7,9 +7,12 @@ p.inputFiles=[sys.argv[1]]
 p.outputFiles = [sys.argv[2]]
 
 from LDMX.BeamInstrumentation.FiberTrackerDecoder import FiberTrackerDecoder
+from LDMX.BeamInstrumentation.WhiteRabbitDecoder import WhiteRabbitDecoder
 
-dec = FiberTrackerDecoder.decode()
+decft = FiberTrackerDecoder.decode()
+decwr = WhiteRabbitDecoder.decode()
 
 p.sequence = [
-        dec
+        decft,
+        decwr
 ]
